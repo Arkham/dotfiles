@@ -21,8 +21,13 @@ function is_vim_running {
   jobs | grep -o 'vim' &> /dev/null
 }
 
+function __ruby_version {
+  chruby_auto
+  ruby --version | cut -d' ' -f2
+}
+
 PROMPT_INFO="${BLACK}[\A] ${green}\u${NC} ${BLUE}\w"
-PROMPT_RUBY="[\$(rbenv version | sed -e 's/ .*//')]"
+PROMPT_RUBY="[\$(__ruby_version)]"
 PROMPT_GIT="${GREEN}\$(__git_ps1)"
 PROMPT_FOOTER="\n\$(is_vim_running && echo \"${red}\" || echo \"${BLACK}\")↳ ${GREEN}\$ ${NC}"
 
@@ -77,8 +82,8 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 ## Bash completion
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-  . `brew --prefix`/etc/bash_completion
+if [ -f /etc/bash_completion ]; then
+ . /etc/bash_completion
 fi
 
 ## Virtualenv wrapper
@@ -166,6 +171,10 @@ function echo_last_migration {
 function last_migration {
   vim `echo_last_migration $*`
 }
+
+# load chruby
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
 
 ## Some random fortune
 fortune -s

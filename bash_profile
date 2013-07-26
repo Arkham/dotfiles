@@ -7,9 +7,6 @@ export LC_ALL=en_US.UTF-8
 export PATH="$HOME/.cabal/bin:/usr/local/sbin:/usr/local/bin:$PATH"
 export PATH="/usr/local/share/python:/usr/local/share/npm/bin:$PATH"
 
-# load up rbenv
-[ -f `which rbenv` ] && eval "$(rbenv init -)"
-
 # add binstubs folder to path
 export PATH="./bin:$PATH"
 
