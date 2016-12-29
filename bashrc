@@ -22,7 +22,7 @@ function is_vim_running {
 }
 
 PROMPT_INFO="${BLACK}[\A] ${green}\u${NC} ${BLUE}\w"
-PROMPT_RUBY="[\$(rbenv version | sed -e 's/ .*//')]"
+PROMPT_RUBY="[\$(rbenv version-name)]"
 PROMPT_GIT="${GREEN}\$(__git_ps1)"
 PROMPT_FOOTER="\n\$(is_vim_running && echo \"${red}\" || echo \"${BLACK}\")↳ ${GREEN}\$ ${NC}"
 
