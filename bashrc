@@ -23,10 +23,11 @@ function is_vim_running {
 
 PROMPT_INFO="${BLACK}[\A] ${green}\u${NC} ${BLUE}\w"
 PROMPT_RUBY="[\$(rbenv version-name)]"
+PROMPT_ELIXIR="[\$(asdf current elixir | cut -d ' ' -f 1)]"
 PROMPT_GIT="${GREEN}\$(__git_ps1)"
 PROMPT_FOOTER="\n\$(is_vim_running && echo \"${red}\" || echo \"${BLACK}\")↳ ${GREEN}\$ ${NC}"
 
-PS1="${PROMPT_INFO} ${PROMPT_RUBY}${PROMPT_GIT} ${PROMPT_FOOTER}"
+PS1="${PROMPT_INFO} ${PROMPT_ELIXIR}${PROMPT_GIT} ${PROMPT_FOOTER}"
 
 ## Aliases
 alias ls="ls -hFG"
@@ -83,6 +84,10 @@ fi
 
 ## Direnv
 eval "$(direnv hook bash)"
+
+## Asdf
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
 
 ## Other utilies
 # go back n directories
