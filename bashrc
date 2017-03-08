@@ -22,12 +22,10 @@ function is_vim_running {
 }
 
 PROMPT_INFO="${BLACK}[\A] ${green}\u${NC} ${BLUE}\w"
-PROMPT_RUBY="[\$(rbenv version-name)]"
-PROMPT_ELIXIR="[\$(asdf current elixir | cut -d ' ' -f 1)]"
 PROMPT_GIT="${GREEN}\$(__git_ps1)"
 PROMPT_FOOTER="\n\$(is_vim_running && echo \"${red}\" || echo \"${BLACK}\")↳ ${GREEN}\$ ${NC}"
 
-PS1="${PROMPT_INFO} ${PROMPT_ELIXIR}${PROMPT_GIT} ${PROMPT_FOOTER}"
+PS1="${PROMPT_INFO} ${PROMPT_GIT} ${PROMPT_FOOTER}"
 
 ## Aliases
 alias ls="ls -hFG"
@@ -41,10 +39,6 @@ alias im="vim"
 alias hs='history | grep --color=auto'
 alias grep="grep --color=auto"
 alias sudo="sudo "
-#
-alias rs="rails server"
-alias zs="zeus start"
-alias fs="foreman start"
 #
 alias nom="rm -rf node_modules && npm cache clean && npm install"
 alias bom="rm -rf bower_components && bower cache clean && bower install"
@@ -81,13 +75,6 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 if [ -f `brew --prefix`/etc/bash_completion ]; then
   . `brew --prefix`/etc/bash_completion
 fi
-
-## Direnv
-eval "$(direnv hook bash)"
-
-## Asdf
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
 
 ## Other utilies
 # go back n directories
@@ -129,20 +116,15 @@ function mkcd {
   mkdir -p "$1" && cd "$1";
 }
 
-# last rails migration
-function echo_last_migration {
-  migrate_path="db/migrate/"
-  nth_migration=$((${1:-0}+1))
-  echo "${migrate_path}$(ls -1t $migrate_path | head -$nth_migration | tail -1)"
-}
-
-function last_migration {
-  vim `echo_last_migration $*`
-}
-
+# find or create tmux session
 function tat {
   name=$(basename `pwd`)
   (tmux ls | grep $name) && tmux attach -t $name || tmux new-session -s $name
+}
+
+# load direnv
+function loadenv {
+  eval "$(direnv hook bash)"
 }
 
 ## Some random fortune

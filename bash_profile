@@ -10,8 +10,12 @@ export PATH="/usr/local/share/npm/bin:$PATH"
 export PATH="$HOME/.dotfiles/bin:$PATH"
 export PATH="bin:.bundle/bin:$PATH"
 
-# load up rbenv
-[ -f `which rbenv` ] && eval "$(rbenv init -)"
+# load fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# load asdf
+[ -d ~/.asdf ] && source ~/.asdf/asdf.sh \
+  && source ~/.asdf/completions/asdf.bash
 
 # load .bashrc
 source $HOME/.bashrc
