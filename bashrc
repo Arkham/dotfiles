@@ -60,6 +60,7 @@ export HISTCONTROL="ignoreboth"
 export EDITOR="/usr/local/bin/vim"
 export RUBY_CONFIGURE_OPTS="--disable-install-doc"
 export PIP_REQUIRE_VIRTUALENV=true
+export FZF_DEFAULT_COMMAND='ag -g ""'
 
 ## Colored manpages
 export LESS_TERMCAP_mb=$'\E[01;31m'
