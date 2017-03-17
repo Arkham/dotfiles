@@ -24,7 +24,6 @@ function is_vim_running {
 PROMPT_INFO="${BLACK}[\A] ${green}\u${NC} ${BLUE}\w"
 PROMPT_GIT="${GREEN}\$(__git_ps1)"
 PROMPT_FOOTER="\n\$(is_vim_running && echo \"${red}\" || echo \"${BLACK}\")↳ ${GREEN}\$ ${NC}"
-
 PS1="${PROMPT_INFO} ${PROMPT_GIT} ${PROMPT_FOOTER}"
 
 ## Aliases
@@ -72,11 +71,15 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 ## Bash completion
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-  . `brew --prefix`/etc/bash_completion
+BREW_PREFIX=""
+if $(has_program brew); then
+  BREW_PREFIX=`brew --prefix`
+fi
+if [ -f ${BREW_PREFIX}/etc/bash_completion ]; then
+  . ${BREW_PREFIX}/etc/bash_completion
 fi
 
-## Other utilies
+## Utilities
 # go back n directories
 function b {
     str=""
@@ -128,4 +131,4 @@ function loadenv {
 }
 
 ## Some random fortune
-fortune -s
+has_program fortune && fortune -s

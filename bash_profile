@@ -10,14 +10,24 @@ export PATH="/usr/local/share/npm/bin:$PATH"
 export PATH="$HOME/.dotfiles/bin:$PATH"
 export PATH="bin:.bundle/bin:$PATH"
 
+# safe source
+function safe_source {
+  [ -f "$1" ] && source "$1"
+}
+
+# check if program is available
+function has_program {
+  hash $1 2>/dev/null
+}
+
 # load fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+safe_source ~/.fzf.bash
 
 # load asdf
-[ -d ~/.asdf ] && source ~/.asdf/asdf.sh \
-  && source ~/.asdf/completions/asdf.bash
+safe_source ~/.asdf/asdf.sh
+safe_source ~/.asdf/completions/asdf.bash
 
-# load .bashrc
-source $HOME/.bashrc
-source $HOME/.iterm2_shell_integration.bash
-source /usr/local/bin/virtualenvwrapper.sh
+# load .bashrc and integrations
+safe_source $HOME/.bashrc
+safe_source $HOME/.iterm2_shell_integration.bash
+safe_source /usr/local/bin/virtualenvwrapper.sh
