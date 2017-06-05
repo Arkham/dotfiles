@@ -34,7 +34,8 @@ alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
 #
-alias im="vim"
+alias im="nvim"
+alias vim="nvim"
 alias hs='history | grep --color=auto'
 alias grep="grep --color=auto"
 alias sudo="sudo "
@@ -57,7 +58,7 @@ export HISTSIZE=10000
 export HISTFILESIZE=10000
 export PROMPT_COMMAND="echo"
 export HISTCONTROL="ignoreboth"
-export EDITOR="/usr/local/bin/vim"
+export EDITOR="/usr/local/bin/nvim"
 export RUBY_CONFIGURE_OPTS="--disable-install-doc"
 export PIP_REQUIRE_VIRTUALENV=true
 export FZF_DEFAULT_COMMAND='ag -g ""'
