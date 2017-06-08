@@ -123,7 +123,7 @@ function mkcd {
 
 # find or create tmux session
 function tat {
-  name=$(basename `pwd`)
+  name=$(basename `pwd` | sed -e 's/\.//g')
   (tmux ls | grep $name) && tmux attach -t $name || tmux new-session -s $name
 }
 
