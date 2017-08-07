@@ -73,14 +73,11 @@
 
 [user]
   name = Ju Liu
-  email = ju.liu@welaika.com
+  email = ju@noredink.com
   username = Arkham
 
 [push]
   default = upstream
-
-[heroku]
-  account = welaika
 
 [pull]
   rebase = true
