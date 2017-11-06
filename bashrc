@@ -43,6 +43,7 @@ alias sudo="sudo "
 alias nom="rm -rf node_modules && npm cache clean && npm install"
 alias bom="rm -rf bower_components && bower cache clean && bower install"
 alias nombom="nom && bom"
+alias inv="invoker start Procfile.custom -d"
 
 ## Shopt options
 shopt -s cdspell        # This will correct minor spelling errors in cd command.
