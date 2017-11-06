@@ -61,7 +61,8 @@ export HISTCONTROL="ignoreboth"
 export EDITOR="/usr/local/bin/nvim"
 export RUBY_CONFIGURE_OPTS="--disable-install-doc"
 export PIP_REQUIRE_VIRTUALENV=true
-export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_DEFAULT_COMMAND="ag -g ''"
+export ERL_AFLAGS="-kernel shell_history enabled"
 
 ## Colored manpages
 export LESS_TERMCAP_mb=$'\E[01;31m'
