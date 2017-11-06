@@ -36,6 +36,7 @@
   bra = branch -a
   newbr = checkout -b
   rmbr = branch -d
+  mvbr = branch -m
   trackbr = git checkout --track
   menoff = merge --no-ff
   cleanbr = "!git remote prune origin && git co master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d && git co -"
@@ -83,6 +84,21 @@
   rebase = true
 
 [core]
-  excludesfile = /Users/juliu/.gitexcludes
+  excludesfile = ~/.gitexcludes
+
+[filter "lfs"]
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+
+[merge]
+  tool = p4mergetool
+  conflictstyle = diff3
+[mergetool "p4mergetool"]
+  cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$REMOTE $PWD/$LOCAL $PWD/$MERGED
+  trustExitCode = false
+[mergetool]
+  keepBackup = false
 
 ; vim: ft=gitconfig
