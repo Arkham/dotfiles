@@ -43,7 +43,12 @@ alias sudo="sudo "
 alias nom="rm -rf node_modules && npm cache clean && npm install"
 alias bom="rm -rf bower_components && bower cache clean && bower install"
 alias nombom="nom && bom"
-alias inv="invoker start Procfile.custom -d"
+
+function jetpack_dev () {
+  QUERY="$1"
+  jetpack $(find app/assets/modules -type f | fzf -m -q "$QUERY" --select-1 --bind='ctrl-a:select-all,ctrl-d:deselect-all') --watch --debug
+}
+alias jedev="jetpack_dev"
 
 ## Shopt options
 shopt -s cdspell        # This will correct minor spelling errors in cd command.
@@ -132,6 +137,30 @@ function tat {
 # load direnv
 function loadenv {
   eval "$(direnv hook bash)"
+}
+
+# repeat command
+function repeat() {
+  number=$1
+  shift
+  for n in $(seq $number); do
+    if ! $@; then
+      echo "Sorry, something failed!"
+      return 1
+    fi
+  done
+  return 0
+}
+
+# last rails migration
+function echo_last_migration {
+  migrate_path="db/migrate/"
+  nth_migration=$((${1:-0}+1))
+  echo "${migrate_path}$(ls -1t $migrate_path | head -$nth_migration | tail -1)"
+}
+
+function last_migration {
+  vim `echo_last_migration $*`
 }
 
 ## Some random fortune

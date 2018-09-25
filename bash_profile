@@ -10,7 +10,8 @@ export PATH="/usr/local/share/npm/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="/Library/TeX/texbin:$PATH"
 export PATH="$HOME/.dotfiles/bin:$PATH"
-export PATH="bin:.bundle/bin:$PATH"
+export PATH="bin:.bundle/bin:node_modules/.bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
 
 # safe source
 function safe_source {
@@ -36,3 +37,5 @@ safe_source ~/.iterm2_shell_integration.bash
 safe_source /usr/local/bin/virtualenvwrapper.sh
 safe_source /usr/local/share/chruby/chruby.sh
 safe_source /usr/local/share/chruby/auto.sh
+safe_source /usr/local/opt/nvm/nvm.sh
+safe_source ~/.nix-profile/etc/profile.d/nix.sh
