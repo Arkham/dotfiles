@@ -1,7 +1,0 @@
-#! /bin/bash
-
-if [[ -S .zeus.sock ]]; then
-  zeus rspec "$@"
-else
-  rspec "$@"
-fi

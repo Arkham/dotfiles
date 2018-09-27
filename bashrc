@@ -1,3 +1,6 @@
+# Load helpers
+source ~/.dotfiles/bash_helpers
+
 ## Fancy prompt
 red='\[\e[0;31m\]'
 RED='\[\e[1;31m\]'
@@ -21,13 +24,18 @@ function is_vim_running {
   jobs | grep -o 'vim' &> /dev/null
 }
 
+function is_direnv_dir {
+  [[ -n "${DIRENV_DIR}" ]]
+}
+
+PROMPT_DIRENV="\$(is_direnv_dir && echo \"*\")"
 PROMPT_INFO="${BLACK}[\A] ${green}\u${NC} ${BLUE}\w"
 PROMPT_GIT="${GREEN}\$(__git_ps1)"
 PROMPT_FOOTER="\n\$(is_vim_running && echo \"${red}\" || echo \"${BLACK}\")↳ ${GREEN}\$ ${NC}"
-PS1="${PROMPT_INFO} ${PROMPT_GIT} ${PROMPT_FOOTER}"
+PS1="${PROMPT_INFO}${PROMPT_DIRENV}${PROMPT_GIT} ${PROMPT_FOOTER}"
 
 ## Aliases
-alias ls="ls -hFG"
+alias ls="ls -hF --color"
 alias la="ls -lA"
 alias recent="ls -lAt"
 alias rm="rm -i"
@@ -39,16 +47,6 @@ alias vim="nvim"
 alias hs='history | grep --color=auto'
 alias grep="grep --color=auto"
 alias sudo="sudo "
-#
-alias nom="rm -rf node_modules && npm cache clean && npm install"
-alias bom="rm -rf bower_components && bower cache clean && bower install"
-alias nombom="nom && bom"
-
-function jetpack_dev () {
-  QUERY="$1"
-  jetpack $(find app/assets/modules -type f | fzf -m -q "$QUERY" --select-1 --bind='ctrl-a:select-all,ctrl-d:deselect-all') --watch --debug
-}
-alias jedev="jetpack_dev"
 
 ## Shopt options
 shopt -s cdspell        # This will correct minor spelling errors in cd command.
@@ -69,6 +67,7 @@ export RUBY_CONFIGURE_OPTS="--disable-install-doc"
 export PIP_REQUIRE_VIRTUALENV=true
 export FZF_DEFAULT_COMMAND="ag -g ''"
 export ERL_AFLAGS="-kernel shell_history enabled"
+export DIRENV_LOG_FORMAT=""
 
 ## Colored manpages
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -79,14 +78,16 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
+## Some random fortune
+has_program fortune && fortune -s
+
 ## Bash completion
 BREW_PREFIX=""
-if $(has_program brew); then
-  BREW_PREFIX=`brew --prefix`
-fi
-if [ -f ${BREW_PREFIX}/etc/bash_completion ]; then
-  . ${BREW_PREFIX}/etc/bash_completion
-fi
+has_program brew && BREW_PREFIX=`brew --prefix`
+safe_source ${BREW_PREFIX}/etc/bash_completion
+
+## Load direnv
+has_program direnv && eval "$(direnv hook bash)"
 
 ## Utilities
 # go back n directories
@@ -131,12 +132,7 @@ function mkcd {
 # find or create tmux session
 function tat {
   name=$(basename `pwd` | sed -e 's/\.//g')
-  (tmux ls | grep $name) && tmux attach -t $name || tmux new-session -s $name
-}
-
-# load direnv
-function loadenv {
-  eval "$(direnv hook bash)"
+  (tmux ls | grep $name) && tmux attach -t $name || direnv exec / tmux new-session -s $name
 }
 
 # repeat command
@@ -163,5 +159,9 @@ function last_migration {
   vim `echo_last_migration $*`
 }
 
-## Some random fortune
-has_program fortune && fortune -s
+# smart jetpack
+function jetpack_dev () {
+  QUERY="$1"
+  jetpack $(find app/assets/modules -type f | fzf -m -q "$QUERY" --select-1 --bind='ctrl-a:select-all,ctrl-d:deselect-all') --watch --debug
+}
+alias jedev="jetpack_dev"

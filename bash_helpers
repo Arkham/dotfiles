@@ -1,0 +1,9 @@
+# safe source
+function safe_source {
+  [ -f "$1" ] && source "$1"
+}
+
+# check if program is available
+function has_program {
+  hash $1 2>/dev/null
+}
