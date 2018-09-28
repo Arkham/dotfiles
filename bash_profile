@@ -10,10 +10,10 @@ export PATH="/usr/local/share/npm/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/Library/TeX/texbin:$PATH"
-export PATH="$HOME/.dotfiles/bin:$PATH"
+export PATH="~/.dotfiles/bin:$PATH"
 
+# Some sweet manpages
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-export NVM_DIR="$HOME/.nvm"
 
 # Load helpers
 source ~/.dotfiles/bash_helpers
@@ -29,6 +29,4 @@ safe_source ~/.asdf/completions/asdf.bash
 safe_source ~/.bashrc
 safe_source ~/.bashrc.secrets
 safe_source ~/.iterm2_shell_integration.bash
-safe_source /usr/local/bin/virtualenvwrapper.sh
-safe_source /usr/local/opt/nvm/nvm.sh
 safe_source ~/.nix-profile/etc/profile.d/nix.sh

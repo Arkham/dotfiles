@@ -28,8 +28,8 @@ function is_direnv_dir {
   [[ -n "${DIRENV_DIR}" ]]
 }
 
-PROMPT_DIRENV="\$(is_direnv_dir && echo \"*\")"
 PROMPT_INFO="${BLACK}[\A] ${green}\u${NC} ${BLUE}\w"
+PROMPT_DIRENV="\$(is_direnv_dir && echo \"*\")"
 PROMPT_GIT="${GREEN}\$(__git_ps1)"
 PROMPT_FOOTER="\n\$(is_vim_running && echo \"${red}\" || echo \"${BLACK}\")↳ ${GREEN}\$ ${NC}"
 PS1="${PROMPT_INFO}${PROMPT_DIRENV}${PROMPT_GIT} ${PROMPT_FOOTER}"
@@ -64,7 +64,6 @@ export PROMPT_COMMAND="echo"
 export HISTCONTROL="ignoreboth"
 export EDITOR="/usr/local/bin/nvim"
 export RUBY_CONFIGURE_OPTS="--disable-install-doc"
-export PIP_REQUIRE_VIRTUALENV=true
 export FZF_DEFAULT_COMMAND="ag -g ''"
 export ERL_AFLAGS="-kernel shell_history enabled"
 export DIRENV_LOG_FORMAT=""
@@ -78,12 +77,8 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-## Some random fortune
-has_program fortune && fortune -s
-
 ## Bash completion
-BREW_PREFIX=""
-has_program brew && BREW_PREFIX=`brew --prefix`
+BREW_PREFIX="$(has_program brew && brew --prefix)"
 safe_source ${BREW_PREFIX}/etc/bash_completion
 
 ## Load direnv
@@ -165,3 +160,6 @@ function jetpack_dev () {
   jetpack $(find app/assets/modules -type f | fzf -m -q "$QUERY" --select-1 --bind='ctrl-a:select-all,ctrl-d:deselect-all') --watch --debug
 }
 alias jedev="jetpack_dev"
+
+## Some random fortune
+has_program fortune && fortune -s
