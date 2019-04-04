@@ -10,7 +10,8 @@ export PATH="/usr/local/share/npm/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/Library/TeX/texbin:$PATH"
-export PATH="~/.dotfiles/bin:$PATH"
+export PATH="$HOME/.dotfiles/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Some sweet manpages
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"

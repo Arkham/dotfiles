@@ -66,7 +66,6 @@ export EDITOR="/usr/local/bin/nvim"
 export RUBY_CONFIGURE_OPTS="--disable-install-doc"
 export FZF_DEFAULT_COMMAND="ag -g ''"
 export ERL_AFLAGS="-kernel shell_history enabled"
-export DIRENV_LOG_FORMAT=""
 
 ## Colored manpages
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -157,9 +156,9 @@ function last_migration {
 # smart jetpack
 function jetpack_dev () {
   QUERY="$1"
-  jetpack $(find app/assets/modules -type f | fzf -m -q "$QUERY" --select-1 --bind='ctrl-a:select-all,ctrl-d:deselect-all') --watch --debug
+  npx jetpack $(find app/assets/modules -type f | fzf -m -q "$QUERY" --select-1 --bind='ctrl-a:select-all,ctrl-d:deselect-all') --watch
 }
 alias jedev="jetpack_dev"
 
 ## Some random fortune
-has_program fortune && fortune -s
+shopt -q login_shell && has_program fortune && fortune -s
