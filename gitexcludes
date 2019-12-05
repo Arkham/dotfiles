@@ -3,3 +3,4 @@ tags
 .env
 .DS_Store
 Procfile.custom
+.hlint.yaml

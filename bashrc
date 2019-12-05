@@ -42,8 +42,8 @@ alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
 #
-alias im="nvim"
-alias vim="nvim"
+alias vim="PYTHONPATH='' nvim"
+alias im="vim"
 alias hs='history | grep --color=auto'
 alias grep="grep --color=auto"
 alias sudo="sudo "
@@ -156,9 +156,25 @@ function last_migration {
 # smart jetpack
 function jetpack_dev () {
   QUERY="$1"
-  npx jetpack $(find app/assets/modules -type f | fzf -m -q "$QUERY" --select-1 --bind='ctrl-a:select-all,ctrl-d:deselect-all') --watch
+  jetpack $(find ui/modules -type f | fzf -m -q "$QUERY" --select-1 --bind='ctrl-a:select-all,ctrl-d:deselect-all') --watch
 }
 alias jedev="jetpack_dev"
+
+# find and edit
+function find_and_edit () {
+  if test -d .git
+  then
+    SOURCE="$(git ls-files)"
+  else
+    SOURCE="$(find . -type f)"
+  fi
+  files="$(fzf --preview='bat --color=always --paging=never --style=changes {} | head -$FZF_PREVIEW_LINES' --select-1 --multi --query="$@" <<< "$SOURCE")"
+  if [[ "$?" != "0" ]]
+  then
+    return 1
+  fi
+  vim $files
+}
 
 ## Some random fortune
 shopt -q login_shell && has_program fortune && fortune -s

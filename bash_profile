@@ -10,6 +10,7 @@ export PATH="/usr/local/share/npm/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/Library/TeX/texbin:$PATH"
+export PATH="$HOME/.stack/programs/x86_64-osx/ghc-8.6.5/bin:$PATH"
 export PATH="$HOME/.dotfiles/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -29,5 +30,4 @@ safe_source ~/.asdf/completions/asdf.bash
 # load .bashrc and integrations
 safe_source ~/.bashrc
 safe_source ~/.bashrc.secrets
-safe_source ~/.iterm2_shell_integration.bash
 safe_source ~/.nix-profile/etc/profile.d/nix.sh
